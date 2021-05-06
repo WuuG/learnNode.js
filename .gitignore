@@ -116,3 +116,5 @@ dist
 .pnp.*
 # vscode conifg
 .vscode
+# igoner log
+log/
