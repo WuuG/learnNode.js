@@ -1,6 +1,6 @@
 {
-  "name": "learn-npm",
-  "version": "1.0.0",
+  "name": "wuug-test-one",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,7 @@
   "dependencies": {
     "jquery": "^2.0.0",
     "lodash": "^4.17.21",
-    "underscore": "^1.13.1",
-    "wuug-test-one": "^1.0.1"
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2"
