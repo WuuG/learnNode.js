@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "express": "express"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "log4js": "^6.3.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

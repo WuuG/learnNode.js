@@ -16,7 +16,7 @@ const url = new URL(
 );
 // const res = querystring.parse(url.search.slice(1));
 const res = querystring.decode(url.search.slice(1));
-// logger.info("res = ", res);
+logger.info("res = ", res);
 
 const parmasStr = querystring.stringify(
   {
