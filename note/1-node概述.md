@@ -16,6 +16,7 @@
     - [cross-env](#cross-env)
   - [NRM：Npm Registry Manager](#nrmnpm-registry-manager)
   - [NPX:npm package extension](#npxnpm-package-extension)
+  - [Yarn](#yarn)
 - [node.js自定义模块](#nodejs自定义模块)
   - [commonjs模块化](#commonjs模块化)
 # Node.js
@@ -149,6 +150,23 @@ npx会逐步寻找是否有node_modules，从本地到全局，若是没有它�
 ``` javascript
 $ npx --no-install http-server //若是没有也不要安装
 $ npx --ignore-existing http-server //不是用本地的，直接使用网上的
+```
+## [Yarn](https://yarnpkg.com/getting-started/usage)
+类似npm啦
+``` js
+yarn init
+yarn add [package]
+yarn add [package] --dev
+yarn upgrade [package]
+yarn remove [package]
+yarn | yarn install
+```
+修改源
+```js
+yarn config get registry // 查看源
+yarn save 软件名 --registry https://registry.npm.taobao.org/ //临时修改源
+yarn config set registry // https://registry.npm.taobao.org/ //全局修改源
+npm install -g yrm //yrm 类似 nrm
 ```
 # node.js自定义模块
 ## commonjs模块化
