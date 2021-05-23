@@ -23,9 +23,9 @@
 - [6. fs](#6-fs)
   - [6.1. 文件/文件夹读取相关操作](#61-文件文件夹读取相关操作)
   - [6.2. 文件异步和常用操作](#62-文件异步和常用操作)
-- [zlib](#zlib)
-- [readline](#readline)
-- [Crypto 加密](#crypto-加密)
+- [7. zlib](#7-zlib)
+- [8. readline](#8-readline)
+- [9. Crypto 加密](#9-crypto-加密)
 # 1. url
 ## 1.1. [log4js](https://www.npmjs.com/package/log4js)
 通过打印操作，来形成日志，并记录成文件,java也有log4
@@ -452,7 +452,7 @@ fs.watch('./logs/log1.log', (err) => { //观察文件变化，存在兼容性问
 
 fs.watchFile() //检测文件变化，无兼容性问题
 ```
-# zlib
+# 7. zlib
 ``` js
 // 流操作，不是很懂
 const fs = require('fs');
@@ -468,7 +468,7 @@ readStream
   .pipe(gzip)
   .pipe(writeStream)
 ```
-# readline
+# 8. readline
 有那么点类似python的input，在控制台上获取消息。控制台交互吧。
 ``` js
 // 官网例子
@@ -486,7 +486,7 @@ rl.question('What do you think of Node.js? ', (answer) => {
   rl.close();
 });
 ```
-# Crypto 加密
+# 9. Crypto 加密
 ``` js
 const crypto = require('crypto');
 
