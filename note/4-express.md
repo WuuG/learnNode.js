@@ -1,3 +1,13 @@
+# 软件架构模式
+MVC(model-view-controller)
+
+![](index_files/4-1.png)
+
+MVP(Model View Presenter) -> RMVP(router module view controller)
+
+![](index_files/4-2.png)
+
+MVVM
 # 基础使用
 ``` js
 const express = require('express');
@@ -85,16 +95,7 @@ Node.js body midllerware, body-parser已弃用，继承到express当中了
 app.use(express.json()) //application/json
 app.use(express.urlencoded({ extends: false })) //application/x-www-form-urlencoded
 ```
-# 软件架构模式
-MVC(model-view-controller)
 
-![](index_files/4-1.png)
-
-MVP(Model View Presenter)
-
-![](index_files/4-2.png)
-
-MVVM
 # router
 index.js
 ``` js
@@ -124,7 +125,7 @@ app.listen(8000, () => {
   console.log('localhost:8000');
 })
 ```
-## 不同http方法的区别
+## 不同http方法的语义区别
 ``` js
 //get 获取数据
 router.get('/index', (req, res, next) => {
@@ -141,4 +142,27 @@ router.put('/index', (req, res, next) => {
 // 修改数据-增量修改-改一部分
 router.patch('/index', (req, res, next) => {
 })
+//所有都接受
+router.all('/index', (req, res, next) => {
+  res.send('hello')
+})
+```
+# Controller
+/controller/index.js
+``` js
+const list = (req, res, next) => {
+  const query = req.query
+  console.log(query);
+  res.send(query) //这里会自动添加content-type
+  // res.json(query)
+  next()
+}
+
+exports.list = list
+```
+/router/index.js
+``` js
+const { list } = require('../controller/index')
+
+router.get('/index', list)
 ```
