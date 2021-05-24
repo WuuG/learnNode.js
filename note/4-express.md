@@ -175,8 +175,8 @@ router.get('/index', list)
 ### 纯静态资源
 server.js 中添加下面的一行
 ``` js
-app.use(express.urlencoded({ extended: true }))
-// 内置中间件：静态资源服务中间件
+// 内置中间件：静态资源服务中间件,默认public中查找静态资源 。http://localhost:8000/index.html --> 会查找到 public/index.html
+app.use(express.static('public'))
 ```
 ### 服务端渲染 SSR(Server Side Render)
 router index.js

@@ -1,6 +1,7 @@
 const template = require('art-template');
 const path = require('path');
 const fs = require('fs');
+const { dataArray } = require('../model/list')
 
 const list = (req, res, next) => {
   // 1. 服务端渲染
@@ -23,10 +24,6 @@ const list = (req, res, next) => {
   // res.send(dataObj)
 
   // 2.1 art-template
-  let dataArray = []
-  for (let i = 0; i < 100; i++) {
-    dataArray.push(`line ${i}`)
-  }
 
   // 304 说明是直接获取缓存，所以头部没有发生改变。
   // res.set('Content-Type', 'application/json; charset=utf-8')

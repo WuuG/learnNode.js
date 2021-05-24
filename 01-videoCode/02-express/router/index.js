@@ -2,12 +2,11 @@ const router = require('express').Router()
 const { list } = require('../controller/index')
 
 router.get('/', (req, res, next) => {
+  console.log(1);
   res.send('home pages')
-  next()
 })
 // 注意在router中，是精确匹配的，/index就是匹配/index,不会匹配/
 // 获取query
-console.log(list);
 router.get('/index', list)
 router.get('/api/list', list)
 

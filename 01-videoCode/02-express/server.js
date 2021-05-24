@@ -18,8 +18,10 @@ app.set('view options', {
 // 这里是对应template所对应的文件夹 views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'art');
-// 内置中间件：静态资源服务中间件
+
+// 内置中间件：静态资源服务中间件,默认public中查找静态资源 。http://localhost:8000/index.html --> 会查找到 public/index.html
 app.use(express.static('public'))
+
 app.use('/', router)
 
 
