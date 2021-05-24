@@ -168,6 +168,13 @@ yarn save 软件名 --registry https://registry.npm.taobao.org/ //临时修改�
 yarn config set registry // https://registry.npm.taobao.org/ //全局修改源
 npm install -g yrm //yrm 类似 nrm
 ```
+代理设置
+``` js
+yarn config ls //查看设置
+yarn config set proxy [url]  //设置http代理
+yarn config set proxy https-proxy [url] //设置https代理
+yarn config delete [options(e.q. proxy)] //删除某项config设置，例如删除proxy
+```
 # node.js自定义模块
 ## commonjs模块化
 commonjs 规范 第三方的规范
