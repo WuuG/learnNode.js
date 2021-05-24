@@ -217,8 +217,58 @@ app.set('view engine', 'art');
 // 内置中间件：静态资源服务中间件
 app.use(express.static('public'))
 ```
-list.art 模板
+views/list.art 模板
 ``` json
+{
+  "ret":true,
+  "data": {{dataStr}}
+}
+```
+#### 后端渲染html
+##### 后端请求带来后生成对应html，并返回
+controller/index.js
+``` js
+  // 客户端模板渲染html
+  res.render('list-html', {
+    data: dataArray
+  })
+```
+views/list-html.art
+``` html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      {{each data}}
+      <li>{{ $value }}</li>
+      {{/each}}
+    </ul>
+  </body>
+</html>
+
+```
+##### cms
+后端直接生成html页面，待需返回
+``` js
+const template = require('art-template');
+const path = require('path');
+const fs = require('fs');
+
+// 通过template渲染页面，有需要时再返回
+let html = template(path.resolve(__dirname, '../views/list-html.art'), {
+  data: dataArray
+});
+// 将生成的html写入publicc中，待需使用 此处使用与上文相同模板
+fs.writeFile(path.join(__dirname, '../public/list.html'), html, (err) => {
+  if (err) throw err
+  console.log('文件已经被创建');
+})
 ```
 ### 前端使用 
 
@@ -240,7 +290,7 @@ $.ajax({
       </ul>
     `
     const html = template.render(templateStr, {
-      data: result.data
+      data: result.data //这个数据是后端拿过来的
     })
     $('#list').html(html)
   }
