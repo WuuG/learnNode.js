@@ -77,7 +77,7 @@ app.use('/', (request, response) => { //这个也会调用
   response.send('hello')
 })
 ```
-## [路由中间件](#router)
+## [路由中间件](#纯静态资源)
 ### 路由中获取query
 ``` js
 // 获取query
@@ -95,7 +95,7 @@ Node.js body midllerware, body-parser已弃用，继承到express当中了
 app.use(express.json()) //application/json
 app.use(express.urlencoded({ extends: false })) //application/x-www-form-urlencoded
 ```
-
+## [ 内置中间件 ](#art-template)
 # router
 index.js
 ``` js
@@ -165,4 +165,84 @@ exports.list = list
 const { list } = require('../controller/index')
 
 router.get('/index', list)
+```
+# View:express template
++ ejs
++ pug
++ jade
++ art-template
+## 前后端交互方式
+### 纯静态资源
+server.js 中添加下面的一行
+``` js
+app.use(express.urlencoded({ extended: true }))
+// 内置中间件：静态资源服务中间件
+```
+### 服务端渲染 SSR(Server Side Render)
+router index.js
+```js
+router.get('/api/list', list)
+```
+controller index.js
+``` js
+const list = (req, res, next) => {
+  let data = `<ul>`
+  for (let i = 0; i < 100; i++) {
+    data += `<li>this is ${i} line </li>`
+  }
+  data += `</ul>`
+  res.send(data)
+  next()
+}
+```
+### 客户端渲染 SSR(Server Side Render)
+后端提供数据，前端根据数据渲染
+## art-template 模板
+安装
+``` js
+yarn add art-template express-art-template -S
+```
+### 后端使用 
+server.js
+``` js
+// art-template
+app.engine('art', require('express-art-template'));
+// 官网是错误的，显然这个东西没什么人维护了，github是对的
+app.set('view options', {
+  debug: process.env.NODE_ENV !== 'production',
+  escape: false  //防止传递的数据进行编码
+});
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'art');
+// 内置中间件：静态资源服务中间件
+app.use(express.static('public'))
+```
+list.art 模板
+``` json
+```
+### 前端使用 
+
+基础写法 common.js
+``` js
+    // 这个东西不要太像啊,vue里面的template啊
+    const html = template.render('<div>{{ data }}</div>', { data: 100 })
+```
+扩展用法 common.js
+``` js
+$.ajax({
+  url: '/api/list',
+  success(result) {
+    let templateStr = `
+      <ul>
+        {{each data}}
+          <li>{{$value}}</li>
+        {{/each}}
+      </ul>
+    `
+    const html = template.render(templateStr, {
+      data: result.data
+    })
+    $('#list').html(html)
+  }
+})
 ```

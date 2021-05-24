@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
 // 获取query
 console.log(list);
 router.get('/index', list)
+router.get('/api/list', list)
 
 // //get 获取数据
 // router.get('/index', (req, res, next) => {
