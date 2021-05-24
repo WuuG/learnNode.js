@@ -4,7 +4,13 @@
   "description": "learning express",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "art-template": "^4.13.2",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "jquery": "^3.6.0"
   }
 }
