@@ -4,10 +4,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: "./src/js/app.js",
+  entry: {
+    app: "./src/js/app.js"
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: './js/[name]-[hash:6].js'
   },
   devtool: 'source-map',
   module: {
