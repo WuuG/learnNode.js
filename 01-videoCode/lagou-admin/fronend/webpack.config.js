@@ -36,6 +36,10 @@ module.exports = {
               "sass-loader",
             ],
           },
+          {
+            test: /\.art$/,
+            loader: "art-template-loader",
+          }
         ]
       }
     ]
