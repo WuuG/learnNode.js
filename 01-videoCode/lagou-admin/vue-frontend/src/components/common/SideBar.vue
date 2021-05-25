@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1 class="web_title">拉勾网<span>职位信息管理</span></h1>
+    <el-button type="primary">主要按钮</el-button>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -48,8 +49,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$--color-primary: red;
 .web_title {
-  height: 56px;
-  line-height: 56px;
+  padding: 0;
+  margin: 0;
+  height: 60px;
+  line-height: 60px;
+  background-color: $color-primary;
+  font-size: 18px;
+  span {
+    font-weight: 400;
+  }
 }
 </style>
