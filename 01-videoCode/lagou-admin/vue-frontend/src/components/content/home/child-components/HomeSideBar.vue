@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <h1 class="web_title">拉勾网<span>职位信息管理</span></h1>
+  <div class="sidebar">
     <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
+      class="sidebar-el-menu"
       @open="handleOpen"
       @close="handleClose"
+      :collapse="sidebarState"
+      unique-opened
     >
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span slot="title">导航一</span>
         </template>
         <el-menu-item-group>
-          <template slot="title">分组一</template>
+          <span slot="title">分组一</span>
           <el-menu-item index="1-1">选项1</el-menu-item>
           <el-menu-item index="1-2">选项2</el-menu-item>
         </el-menu-item-group>
@@ -21,7 +21,7 @@
           <el-menu-item index="1-3">选项3</el-menu-item>
         </el-menu-item-group>
         <el-submenu index="1-4">
-          <template slot="title">选项4</template>
+          <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
       </el-submenu>
@@ -44,6 +44,12 @@
 <script>
 export default {
   name: "SideBar",
+  computed: {
+    sidebarState() {
+      console.log(this.$store.state.sidebarState);
+      return this.$store.state.sidebarState;
+    },
+  },
   methods: {
     handleOpen() {},
     handleClose() {},
@@ -52,16 +58,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.web_title {
-  padding: 0;
-  margin: 0;
-  height: $-height-bar;
-  line-height: $-height-bar;
-  background-color: $-color-primary;
-  font-size: 18px;
-  color: $-color-white;
-  span {
-    font-weight: 400;
+.sidebar {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  ul {
+    height: 100%;
+  }
+  .sidebar-el-menu:not(.el-menu--collapse) {
+    width: 230px;
+    // &:hover {
+    //   color: #fff;
+    // }
   }
 }
 </style>
