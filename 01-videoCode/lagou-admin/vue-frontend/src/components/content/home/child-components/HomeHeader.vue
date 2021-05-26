@@ -2,10 +2,14 @@
   <slot-header type="primary">
     <template v-slot:leftContent>
       <div class="left-content">
+        <h1 class="web_title" :style="{ width: webTitleWidth }">
+          拉勾网<span>职位信息管理</span>
+        </h1>
         <el-button
           type="text"
           icon="el-icon-s-operation"
           class="left-button button"
+          @click="collapeSidebar"
         ></el-button>
       </div>
     </template>
@@ -42,8 +46,19 @@
 import SlotHeader from "../../../common/Header";
 export default {
   name: "HomeHeader",
+  data() {
+    return {
+      webTitleWidth: "231px",
+    };
+  },
   components: {
     SlotHeader,
+  },
+  methods: {
+    collapeSidebar() {
+      this.webTitleWidth = this.$store.state.sidebarState ? "231px" : "64px";
+      this.$store.commit("collapseSidebar");
+    },
   },
 };
 </script>
@@ -55,10 +70,28 @@ export default {
   font-size: 20px;
   margin-top: 5px;
 }
+
 .left-content {
   height: $-height-bar;
   background-color: $-color-deep-primary;
   text-align: left;
+  display: flex;
+  justify-items: left;
+  .web_title {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    height: $-height-bar;
+    line-height: $-height-bar;
+    background-color: $-color-primary;
+    font-size: 18px;
+    color: $-color-white;
+    transition: all 0.2s ease;
+    text-align: center;
+    span {
+      font-weight: 400;
+    }
+  }
   .left-button {
     margin: 5px 0 0 10px;
   }

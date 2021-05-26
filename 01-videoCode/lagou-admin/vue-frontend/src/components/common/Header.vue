@@ -21,8 +21,8 @@ export default {
       type: Object,
       default: function () {
         return {
-          left: 2,
-          middle: 10,
+          left: 10,
+          middle: 2,
           right: 12,
         };
       },
