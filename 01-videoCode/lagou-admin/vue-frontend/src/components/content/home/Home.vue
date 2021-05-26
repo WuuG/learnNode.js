@@ -5,7 +5,9 @@
         <side-bar></side-bar>
       </el-aside>
       <el-container>
-        <el-header class="header"> </el-header>
+        <el-header class="header" height="50px">
+          <home-header></home-header>
+        </el-header>
         <el-main class="main">Main</el-main>
       </el-container>
     </el-container>
@@ -13,10 +15,14 @@
 </template>
 
 <script>
-import SideBar from "../../common/SideBar";
+import SideBar from "./child-components/HomeSideBar";
+import HomeHeader from "./child-components/HomeHeader";
 export default {
   name: "Home",
-  components: { SideBar },
+  components: {
+    SideBar,
+    HomeHeader,
+  },
 };
 </script>
 
@@ -30,6 +36,7 @@ export default {
   .header {
     background-color: red;
     padding: 0;
+    height: $-height-bar;
   }
   .main {
     background-color: seagreen;

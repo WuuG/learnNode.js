@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row type="flex" justify="space-between" :style="{ height: height }">
+    <el-row type="flex" justify="space-between" :class="type">
       <el-col :span="span.left" class="left-header">
         <slot name="leftContent"> </slot>
       </el-col>
@@ -17,10 +17,6 @@
 <script>
 export default {
   props: {
-    height: {
-      type: String,
-      default: "60px",
-    },
     span: {
       type: Object,
       default: function () {
@@ -31,9 +27,21 @@ export default {
         };
       },
     },
+    type: {
+      type: String,
+      default: "default",
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.default {
+  background-color: #fff;
+  height: $-height-bar;
+}
+.primary {
+  background-color: $-color-deep-primary;
+  height: $-height-bar;
+}
 </style>

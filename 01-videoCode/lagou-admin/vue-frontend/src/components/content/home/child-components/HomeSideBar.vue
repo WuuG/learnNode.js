@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1 class="web_title">拉勾网<span>职位信息管理</span></h1>
-    <el-button type="primary">主要按钮</el-button>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -45,18 +44,22 @@
 <script>
 export default {
   name: "SideBar",
+  methods: {
+    handleOpen() {},
+    handleClose() {},
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-$--color-primary: red;
 .web_title {
   padding: 0;
   margin: 0;
-  height: 60px;
-  line-height: 60px;
-  background-color: $color-primary;
+  height: $-height-bar;
+  line-height: $-height-bar;
+  background-color: $-color-primary;
   font-size: 18px;
+  color: $-color-white;
   span {
     font-weight: 400;
   }
