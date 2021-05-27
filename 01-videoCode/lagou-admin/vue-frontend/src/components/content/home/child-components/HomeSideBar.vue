@@ -5,38 +5,46 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="sidebarState"
+      @select="handleSelect"
       unique-opened
+      router
     >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
+      <template v-for="item in menuItems">
+        <el-submenu v-if="item.subs" :index="item.index" :key="item.id">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span>{{ item.title }}</span>
+          </template>
+          <template v-for="subitem in item.subs">
+            <el-submenu v-if="subitem.subs" :key="subitem.id">
+              <template v-slot:title>
+                <i :class="subitem.icon"></i>
+                <span>{{ subitem.title }}</span>
+              </template>
+              <template v-for="threeSubItem in subitem.subs">
+                <el-menu-item
+                  :key="threeSubItem.id"
+                  :index="threeSubItem.index"
+                >
+                  <template v-slot:title>
+                    <span>{{ threeSubItem.title }}</span>
+                  </template>
+                </el-menu-item>
+              </template>
+            </el-submenu>
+            <el-menu-item v-else :index="subitem.index" :key="subitem.id">
+              <span slot="title">
+                <i :class="subitem.icon"></i>
+                {{ subitem.title }}
+              </span>
+            </el-menu-item>
+          </template>
         </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+        <el-menu-item v-else :index="item.index" :key="item.id">
+          <i class="el-icon-menu"></i>
+          <template v-slot:title>{{ item.title }}</template>
+        </el-menu-item>
+      </template>
     </el-menu>
   </div>
 </template>
@@ -44,6 +52,40 @@
 <script>
 export default {
   name: "SideBar",
+  data() {
+    return {
+      menuItems: [
+        {
+          icon: "el-icon-warning",
+          index: "test",
+          title: "测试",
+        },
+        {
+          icon: "el-icon-warning",
+          title: "二级菜单",
+          index: "1",
+          subs: [
+            {
+              icon: "el-icon-warning",
+              index: "home",
+              title: "测试",
+            },
+            {
+              icon: "el-icon-warning",
+              index: "home1",
+              title: "加1",
+              subs: [
+                {
+                  index: "test",
+                  title: "测试",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+  },
   computed: {
     sidebarState() {
       console.log(this.$store.state.sidebarState);
@@ -51,8 +93,9 @@ export default {
     },
   },
   methods: {
-    handleOpen() {},
-    handleClose() {},
+    handleOpen(index) {},
+    handleClose(index) {},
+    handleSelect(index) {},
   },
 };
 </script>
@@ -62,6 +105,7 @@ export default {
   position: absolute;
   top: 50px;
   bottom: 0;
+  text-align: left;
   ul {
     height: 100%;
   }

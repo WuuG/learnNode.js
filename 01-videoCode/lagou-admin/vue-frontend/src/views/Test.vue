@@ -28,6 +28,10 @@
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
+        <el-menu-item index="2">
+          <i class="el-icon-menu"></i>
+          <span slot="title">导航二</span>
+        </el-menu-item>
       </el-submenu>
       <el-menu-item index="2">
         <i class="el-icon-menu"></i>

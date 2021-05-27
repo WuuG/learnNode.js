@@ -6,7 +6,9 @@
       <el-header class="header" height="50px">
         <home-header></home-header>
       </el-header>
-      <el-main class="main" :style="{ left: mainPosLeft }">Main</el-main>
+      <el-main class="main" :style="{ left: mainPosLeft }">
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>

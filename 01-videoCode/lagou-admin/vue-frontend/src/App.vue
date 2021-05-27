@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <router-view />
+    <v-home></v-home>
   </div>
 </template>
+
+<script>
+import vHome from "./components/content/home/Home";
+export default {
+  components: { vHome },
+};
+</script>
 
 <style lang="scss">
 @import url(assets/css/normalize.css);
