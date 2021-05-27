@@ -3,7 +3,7 @@ import axios from '../request';
 const signupRequest = (datas) => {
   axios.request({
     method: 'post',
-    url: 'api/users/signup',
+    url: 'users/signup',
     data: {
       ...datas
     }
