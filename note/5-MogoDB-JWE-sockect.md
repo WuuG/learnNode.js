@@ -89,3 +89,82 @@ db.wuug.find({$or:[{name:'sing1'},{release:'2020-2-32'},{name:'sing10'}]}) // or
 db.wuug.findOne() //查询第一条数据
 db.wuug.find().count() //返回查询到的数据量
 ```
+## Mongoose
+帮助nodejs操作moogodb的工具
+### 基础使用
+#### 基础例子
+``` js
+//导入，并连接数据库
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/lagou-admin', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// 添加数据库连接时的消息提示
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('数据库连接成功！！');
+});
+
+//定义数据库document的模式
+var kittySchema = mongoose.Schema({
+  name: String
+});
+// 定义数据库Collection和对应模式
+var Kitten = mongoose.model('Kitten', kittySchema)
+// 使用构造函数
+var mimi = new Kitten({
+  name: 'mimi'
+})
+// 保存数据刚刚的数据
+mimi.save()
+```
+#### user例子
+db.js
+``` js
+//导入，并连接数据库
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/lagou-admin', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// 添加数据库连接时的消息提示
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('数据库连接成功！！');
+});
+
+//设置用户的Schema
+var UsersSchema = mongoose.Schema({
+  username: String,
+  password: String
+});
+// 定义Colletion：users，何其对应的schema
+var Users = mongoose.model('users', UsersSchema)
+
+//导出使用
+module.exports = {
+  Users
+}
+```
+models/user.js
+``` js
+const { Users } = require('../utils/db')
+
+const signupModel = (username, password) => {
+  const user = new Users({
+    username,
+    password
+  })
+  user.save()
+}
+
+module.exports = {
+  signupModel
+}
+```
+在controller中使用    controller/user.js
+``` js
+const { signupModel } = require('../models/users')
+
+// 直接使用就好
+signupModel(username, password)
+```
