@@ -11,8 +11,12 @@ const signupModel = (username, password) => {
   })
   return user.save()
 }
+const findList = () => {
+  return Users.find().sort({ _id: 1 })
+}
 
 module.exports = {
   signupModel,
-  findUser
+  findUser,
+  findList
 }

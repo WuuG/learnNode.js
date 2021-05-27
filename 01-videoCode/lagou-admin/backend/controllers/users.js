@@ -1,4 +1,4 @@
-const { signupModel, findUser } = require('../models/users')
+const { signupModel, findUser, findList } = require('../models/users')
 const { hash } = require('../utils/tools')
 // 注册用户
 const signup = async (req, res, next) => {
@@ -30,4 +30,16 @@ const signup = async (req, res, next) => {
   }
 }
 
-exports.signup = signup
+// 获取用户列表
+const list = async (req, res, next) => {
+  res.set('content-type', 'application/json; charset=utf-8')
+  const listResult = await findList();
+  res.render('succ', {
+    data: JSON.stringify(listResult)
+  })
+}
+
+module.exports = {
+  signup,
+  list
+}

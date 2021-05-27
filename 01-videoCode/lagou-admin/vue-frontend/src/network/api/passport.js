@@ -9,5 +9,13 @@ const signupRequest = (datas) => {
     }
   })
 }
-
-export { signupRequest }
+const getUserList = () => {
+  return axios.request({
+    method: 'get',
+    url: 'users/list'
+  })
+}
+export {
+  signupRequest,
+  getUserList
+}
