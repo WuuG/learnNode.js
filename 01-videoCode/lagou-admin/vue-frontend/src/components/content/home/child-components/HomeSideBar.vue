@@ -16,7 +16,11 @@
             <span>{{ item.title }}</span>
           </template>
           <template v-for="subitem in item.subs">
-            <el-submenu v-if="subitem.subs" :key="subitem.id">
+            <el-submenu
+              v-if="subitem.subs"
+              :key="subitem.id"
+              :index="subitem.index"
+            >
               <template v-slot:title>
                 <i :class="subitem.icon"></i>
                 <span>{{ subitem.title }}</span>
@@ -41,7 +45,7 @@
           </template>
         </el-submenu>
         <el-menu-item v-else :index="item.index" :key="item.id">
-          <i class="el-icon-menu"></i>
+          <i :class="item.icon"></i>
           <template v-slot:title>{{ item.title }}</template>
         </el-menu-item>
       </template>
@@ -55,6 +59,11 @@ export default {
   data() {
     return {
       menuItems: [
+        {
+          icon: "el-icon-user",
+          index: "user",
+          title: "用户管理",
+        },
         {
           icon: "el-icon-warning",
           index: "test",
@@ -72,7 +81,7 @@ export default {
             },
             {
               icon: "el-icon-warning",
-              index: "home1",
+              index: "1-1",
               title: "加1",
               subs: [
                 {
