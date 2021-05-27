@@ -14,9 +14,13 @@ const signupModel = (username, password) => {
 const findList = () => {
   return Users.find().sort({ _id: 1 })
 }
+const dbRemoveUser = (id) => {
+  return Users.find(id)
+}
 
 module.exports = {
   signupModel,
   findUser,
-  findList
+  findList,
+  dbRemoveUser
 }

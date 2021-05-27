@@ -1,4 +1,4 @@
-const { signupModel, findUser, findList } = require('../models/users')
+const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
 const { hash } = require('../utils/tools')
 // 注册用户
 const signup = async (req, res, next) => {
@@ -38,8 +38,26 @@ const list = async (req, res, next) => {
     data: JSON.stringify(listResult)
   })
 }
+const removeUser = async (req, res, next) => {
+  res.set('content-type', 'application/json; charset=utf-8')
+  const id = req.body.id
+  let result = await dbRemoveUser(id)
+  if (result) {
+    res.render('succ', {
+      data: JSON.stringify({
+        message: '用户已成功删除'
+      })
+    })
+  }
+  res.render('fail', {
+    data: JSON.stringify({
+      message: '未查找到用户。'
+    })
+  })
+}
 
 module.exports = {
   signup,
-  list
+  list,
+  removeUser
 }
