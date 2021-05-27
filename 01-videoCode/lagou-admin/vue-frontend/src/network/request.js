@@ -4,7 +4,7 @@ import axios from 'axios';
 class NewAxios {
   constructor() {
     // 这里其实可以根据环境改的
-    this.baseURL = 'http://localhost:8000'
+    this.baseURL = 'http://localhost:3000'
     this.timeout = 1000
     console.log(1);
   }
