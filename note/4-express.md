@@ -296,3 +296,7 @@ $.ajax({
   }
 })
 ```
+## express-generator
+``` js
+yarn global express-generator // 全局安装express-generator
+```
