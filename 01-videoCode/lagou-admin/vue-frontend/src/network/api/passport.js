@@ -25,7 +25,19 @@ const getUserList = async () => {
     return Promise.reject(error)
   }
 }
+
+const deleteUser = async (id) => {
+  const result = await axios.request({
+    method: 'delete',
+    url: 'users',
+    data: {
+      id: id
+    }
+  })
+  return result
+}
 export {
   signupRequest,
-  getUserList
+  getUserList,
+  deleteUser
 }

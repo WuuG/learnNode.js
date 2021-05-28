@@ -48,6 +48,7 @@ const removeUser = async (req, res, next) => {
         message: '用户已成功删除'
       })
     })
+    return
   }
   res.render('fail', {
     data: JSON.stringify({
