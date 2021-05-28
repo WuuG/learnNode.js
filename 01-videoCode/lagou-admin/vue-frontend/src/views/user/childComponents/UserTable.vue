@@ -101,6 +101,7 @@ export default {
         index * 10 - 1
       );
     },
+    // 设置pagination的当前页面
     setPage(index) {
       console.log(index);
       this.$refs.pagination.internalCurrentPage = index;
