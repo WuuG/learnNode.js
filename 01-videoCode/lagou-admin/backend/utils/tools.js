@@ -10,7 +10,18 @@ const hash = (myPlaintextPassword, saltRounds = 10) => {
     });
   });
 }
+const hashCompare = (myPlaintextPassword, hash) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+      if (err) {
+        reject(err)
+      }
+      resolve(result)
+    });
+  });
+}
 
 module.exports = {
-  hash
+  hash,
+  hashCompare
 }

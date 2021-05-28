@@ -1,5 +1,5 @@
 const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
-const { hash } = require('../utils/tools')
+const { hash, hashCompare } = require('../utils/tools')
 // 注册用户
 const signup = async (req, res, next) => {
   res.set('content-type', 'application/json; charset=utf-8')
@@ -10,9 +10,7 @@ const signup = async (req, res, next) => {
     cryptPassword = await hash(password)
   } catch (err) {
     console.log(`对密码的hash加密失败：${err}`);
-    res.render('fail', {
-      data: JSON.stringify('密码加密失败')
-    })
+    renderMessage(res, 'fail', '密码加密失败')
     return
   }
 
@@ -20,13 +18,9 @@ const signup = async (req, res, next) => {
   const findeResult = await findUser(username)
   if (!findeResult) {
     await signupModel(username, cryptPassword)
-    res.render('succ', {
-      data: JSON.stringify('注册成功')
-    })
+    renderMessage(res, 'succ', '注册成功')
   } else {
-    res.render('fail', {
-      data: JSON.stringify('用户名已存在')
-    })
+    renderMessage(res, 'fail', '用户名已存在')
   }
 }
 
@@ -38,27 +32,48 @@ const list = async (req, res, next) => {
     data: JSON.stringify(listResult)
   })
 }
+// 在数据库中根据_id删除用户
 const removeUser = async (req, res, next) => {
   res.set('content-type', 'application/json; charset=utf-8')
   const id = req.body.id
   let result = await dbRemoveUser(id)
   if (result) {
-    res.render('succ', {
-      data: JSON.stringify({
-        message: '用户已成功删除'
-      })
-    })
+    renderMessage(res, 'succ', '用户已成功删除!')
     return
   }
-  res.render('fail', {
+  renderMessage(res, 'fail', '未查找到用户!')
+}
+// 用户登录
+const signin = async (req, res, next) => {
+  try {
+    const { username, password } = req.body
+    const userinfo = await findUser(username)
+    if (!userinfo) {
+      renderMessage(res, 'fail', '用户名不存在!')
+      return
+    }
+    const result = await hashCompare(password, userinfo.password)
+    console.log(result);
+    if (!result) {
+      renderMessage(res, 'fail', '密码不正确!')
+    } else {
+      renderMessage(res, 'succ', '密码正确')
+    }
+  } catch (error) {
+    console.log(`signin error occured ${error}`);
+  }
+}
+
+const renderMessage = function (res, state, message) {
+  res.render(state, {
     data: JSON.stringify({
-      message: '未查找到用户。'
+      message
     })
   })
 }
-
 module.exports = {
   signup,
   list,
-  removeUser
+  removeUser,
+  signin
 }
