@@ -70,11 +70,17 @@ export default {
     async addUser() {
       this.addDialogVisible = false;
       const result = await signupRequest(this.userForm);
+      if (result === "用户名已存在") {
+        this.$message({
+          message: result,
+          type: "warning",
+        });
+        return;
+      }
       this.$message({
         message: result,
-        type: "warning",
+        type: "success",
       });
-      if (result === "用户名已存在") return;
       // 自定义事件，给父组件调用
       this.$emit("add-user");
     },
