@@ -3,7 +3,7 @@ import axios from '../request';
 const signupRequest = (datas) => {
   axios.request({
     method: 'post',
-    url: 'users/signup',
+    url: 'users',
     data: {
       ...datas
     }
@@ -12,7 +12,7 @@ const signupRequest = (datas) => {
 const getUserList = () => {
   return axios.request({
     method: 'get',
-    url: 'users/list'
+    url: 'users'
   })
 }
 export {

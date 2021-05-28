@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const Test = () => import('@/views/Test.vue')
 const User = () => import('@/views/user/User.vue')
+const BaseTable = () => import('../components/content/BaseTable.vue')
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,22 @@ const routes = [
     name: 'User',
     component: User
   },
+  {
+    path: '/table',
+    name: 'table',
+    component: BaseTable
+  },
+  {
+    path: '/base',
+    name: 'base',
+    component: Test,
+    children: [
+      {
+        path: 'others',
+        component: BaseTable
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({

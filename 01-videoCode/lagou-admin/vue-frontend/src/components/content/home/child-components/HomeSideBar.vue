@@ -65,6 +65,18 @@ export default {
           title: "用户管理",
         },
         {
+          icon: "el-icon-s-help",
+          index: "base",
+          title: "基础组件",
+          subs: [
+            {
+              icon: "el-icon-s-order",
+              index: "table",
+              title: "基础表格",
+            },
+          ],
+        },
+        {
           icon: "el-icon-warning",
           index: "test",
           title: "测试",
