@@ -3,8 +3,8 @@
     <user-table-header height="40">
       <template #leftContent>
         <el-row class="user-controller">
-          <el-col :span="4"
-            ><el-button @click="addDialogVisible = true"
+          <el-col :span="4" :offset="2"
+            ><el-button @click="addDialogVisible = true" type="primary" plain
               >添加用户</el-button
             ></el-col
           >
