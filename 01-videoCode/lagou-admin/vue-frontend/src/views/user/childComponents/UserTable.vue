@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getUserList } from "@/network/api/passport";
+import { getUserList, deleteUser } from "@/network/api/passport";
 export default {
   data() {
     return {
@@ -58,24 +58,38 @@ export default {
       return row[property] === value;
     },
     handleEdit(index, row) {
-      console.log(this.userTableDatas);
       console.log(index, row);
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    async handleDelete(index, row) {
+      try {
+        const res = await deleteUser(row._id);
+        this.$message({
+          type: "success",
+          message: res?.data,
+        });
+      } catch (error) {
+        this.$message(error);
+      }
+      await this.load();
+      const currentpage = this.$refs.pagination.internalCurrentPage;
+      this.setPage(currentpage);
+      this.handlePageChange(currentpage);
     },
     // 刷新用户表格数据
     async load() {
       const initDatas = await getUserList();
       this.userTableDatas = initDatas;
       this.tableShowDatas = this.userTableDatas.slice(0, 9);
-      this.$refs.pagination.internalCurrentPage = 1;
     },
     handlePageChange(index) {
       this.tableShowDatas = this.userTableDatas.slice(
         (index - 1) * 10,
         index * 10 - 1
       );
+    },
+    setPage(index) {
+      console.log(index);
+      this.$refs.pagination.internalCurrentPage = index;
     },
   },
   created() {

@@ -29,6 +29,7 @@ export default {
     // 调用子组件的方法，进行表格刷新方法。
     loadTableDatas() {
       this.$refs.userTable.load();
+      this.$$refs.userTable.set(1);
     },
   },
 };
