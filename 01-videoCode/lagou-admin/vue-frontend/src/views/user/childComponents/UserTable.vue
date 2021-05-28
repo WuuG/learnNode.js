@@ -16,7 +16,7 @@
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button
           >
-          <el-button size="mini" @click="handleDelete(scope.$index, scope.row)"
+          <el-button size="mini" @click="popDeleteDialog(scope.row)"
             >删除</el-button
           >
         </template>
@@ -31,6 +31,13 @@
       @current-change="handlePageChange"
     >
     </el-pagination>
+    <el-dialog title="删除用户" :visible.sync="deletedialogVisible" width="30%">
+      <span>您确定要删除用户吗？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="deletedialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleDelete">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -41,6 +48,8 @@ export default {
     return {
       userTableDatas: [],
       tableShowDatas: [],
+      deletedialogVisible: false,
+      row: {},
     };
   },
   methods: {
@@ -60,9 +69,13 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
     },
-    async handleDelete(index, row) {
+    popDeleteDialog(row) {
+      this.deletedialogVisible = true;
+      this.row = row;
+    },
+    async handleDelete() {
       try {
-        const res = await deleteUser(row._id);
+        const res = await deleteUser(this.row._id);
         this.$message({
           type: "success",
           message: res?.data,
@@ -74,6 +87,7 @@ export default {
       const currentpage = this.$refs.pagination.internalCurrentPage;
       this.setPage(currentpage);
       this.handlePageChange(currentpage);
+      this.deletedialogVisible = false;
     },
     // 刷新用户表格数据
     async load() {
