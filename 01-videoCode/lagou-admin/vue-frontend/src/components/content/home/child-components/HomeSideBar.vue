@@ -109,7 +109,6 @@ export default {
   },
   computed: {
     sidebarState() {
-      console.log(this.$store.state.sidebarState);
       return this.$store.state.sidebarState;
     },
   },

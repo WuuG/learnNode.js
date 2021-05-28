@@ -1,14 +1,24 @@
 <template>
   <div>
-    <el-button @click="signup">传数据</el-button>
-    <el-button @click="getUserList">获取数据</el-button>
+    <user-breadcrumb></user-breadcrumb>
+    <user-controller @add-user="loadTableDatas"></user-controller>
+    <user-table ref="userTable"></user-table>
   </div>
 </template>
 
 <script>
-import { signupRequest, getUserList } from "@/network/api/passport";
+import { signupRequest } from "@/network/api/passport";
+
+import UserTable from "./childComponents/UserTable";
+import UserController from "./childComponents/UserController";
+import UserBreadcrumb from "./childComponents/UserBreadcrumb";
 export default {
   name: "User",
+  components: {
+    UserTable,
+    UserController,
+    UserBreadcrumb,
+  },
   methods: {
     signup() {
       signupRequest({
@@ -16,9 +26,9 @@ export default {
         password: "123",
       });
     },
-    async getUserList() {
-      let data = await getUserList();
-      console.log(data);
+    // 调用子组件的方法，进行表格刷新方法。
+    loadTableDatas() {
+      this.$refs.userTable.load();
     },
   },
 };

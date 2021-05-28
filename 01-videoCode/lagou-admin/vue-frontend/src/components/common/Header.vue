@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-row type="flex" justify="space-between" :class="type">
+    <el-row
+      type="flex"
+      justify="space-between"
+      :class="type"
+      :style="{ height: height + 'px' }"
+    >
       <el-col :span="span.left" class="left-header">
         <slot name="leftContent"> </slot>
       </el-col>
@@ -31,6 +36,10 @@ export default {
       type: String,
       default: "default",
     },
+    height: {
+      type: String,
+      default: "50",
+    },
   },
 };
 </script>
@@ -38,10 +47,8 @@ export default {
 <style lang="scss" scoped>
 .default {
   background-color: #fff;
-  height: $-height-bar;
 }
 .primary {
   background-color: $-color-deep-primary;
-  height: $-height-bar;
 }
 </style>
