@@ -23,16 +23,8 @@ class NewAxios {
     // Add a response interceptor
     instance.interceptors.response.use(function (response) {
       // console.log(`响应拦截器,config：`, response);
-      if (response.status === 403) {
-        this.$message({
-          type: "warning",
-          message: response?.data?.data?.message
-        })
-        return false
-      }
       return response?.data;
     }, function (error) {
-      console.log('响应拦截器：发送的消息出现了错误');
       return Promise.reject(error);
     });
   }

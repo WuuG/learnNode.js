@@ -45,13 +45,13 @@ const signin = async (form) => {
   return res
 }
 const isAuth = async () => {
-  const res = await axios.request({
-    method: 'get',
-    url: 'users/isAuth',
-  })
-  if (res) {
+  try {
+    await axios.request({
+      method: 'get',
+      url: 'users/isAuth',
+    })
     return true
-  } else {
+  } catch (error) {
     return false
   }
 }
@@ -60,11 +60,13 @@ const signout = async () => {
     method: 'get',
     url: 'users/signout'
   })
+  return res.data
 }
 export {
   signupRequest,
   getUserList,
   deleteUser,
   signin,
-  isAuth
+  isAuth,
+  signout
 }
