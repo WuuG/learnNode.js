@@ -1,12 +1,10 @@
 <template>
   <div class="background">
-    <el-row class="header"></el-row>
     <el-row class="content">
-      <el-col :xs="12" :sm="10" :md="9" :lg="8" :xl="7" class="content-box">
+      <el-col :xs="14" :sm="12" :md="10" :lg="8" :xl="7" class="content-box">
         <router-view></router-view>
       </el-col>
     </el-row>
-    <el-row class="footer"></el-row>
   </div>
 </template>
 
@@ -23,11 +21,12 @@ export default {};
   .content {
     flex: 5;
     height: auto;
-    min-height: 500px;
     .content-box {
       float: none;
       margin: 0 auto;
-      background-color: #eee;
+      min-height: 300px;
+      border: 1px solid rgb(218, 220, 224);
+      border-radius: 8px;
     }
   }
   &:before {
