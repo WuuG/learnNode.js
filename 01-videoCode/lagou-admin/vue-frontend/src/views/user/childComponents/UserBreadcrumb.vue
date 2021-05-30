@@ -1,6 +1,5 @@
 <template>
   <el-breadcrumb separator="/" class="user-title">
-    <el-breadcrumb-item> 用户列表 </el-breadcrumb-item>
     <el-breadcrumb-item> 用户列表</el-breadcrumb-item>
   </el-breadcrumb>
 </template>

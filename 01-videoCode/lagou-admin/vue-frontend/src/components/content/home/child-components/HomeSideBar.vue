@@ -81,29 +81,6 @@ export default {
           index: "test",
           title: "测试",
         },
-        {
-          icon: "el-icon-warning",
-          title: "二级菜单",
-          index: "1",
-          subs: [
-            {
-              icon: "el-icon-warning",
-              index: "home",
-              title: "测试",
-            },
-            {
-              icon: "el-icon-warning",
-              index: "1-1",
-              title: "加1",
-              subs: [
-                {
-                  index: "test",
-                  title: "测试",
-                },
-              ],
-            },
-          ],
-        },
       ],
     };
   },
