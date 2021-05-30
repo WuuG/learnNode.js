@@ -2,42 +2,59 @@ import axios from '../request';
 
 const signupRequest = async (datas) => {
   try {
-    const data = await axios.request({
+    const response = await axios.request({
       method: 'post',
       url: 'users',
       data: {
         ...datas
       }
     })
-    return data?.data
+    return response.data?.data?.data
   } catch (error) {
     return Promise.reject(error)
   }
 }
 const getUserList = async () => {
   try {
-    const data = await axios.request({
+    const response = await axios.request({
       method: 'get',
       url: 'users'
     })
-    return data?.data
+    return response?.data?.data
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
 const deleteUser = async (id) => {
-  const result = await axios.request({
+  const response = await axios.request({
     method: 'delete',
     url: 'users',
     data: {
       id: id
     }
   })
-  return result
+  return response.data
+}
+const signin = async (form) => {
+  const response = await axios.request({
+    method: 'post',
+    url: 'users/signin',
+    data: form
+  })
+  return response.data
+}
+const isAuth = async () => {
+  const response = await axios.request({
+    method: 'get',
+    url: 'users/isAuth',
+  })
+  return response
 }
 export {
   signupRequest,
   getUserList,
-  deleteUser
+  deleteUser,
+  signin,
+  isAuth
 }

@@ -23,7 +23,7 @@ class NewAxios {
     // Add a response interceptor
     instance.interceptors.response.use(function (response) {
       // console.log(`响应拦截器,config：`, response);
-      return response?.data;
+      return response;
     }, function (error) {
       console.log('响应拦截器：发送的消息出现了错误');
       return Promise.reject(error);

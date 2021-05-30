@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { signin } from "@/network/api/passport";
 export default {
   name: "SigninForm",
   data() {
@@ -45,13 +46,34 @@ export default {
     };
   },
   methods: {
+    //发送网络请求
+    async signin() {
+      try {
+        return await signin(this.form);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //页面逻辑
     handleFormSubmit(ref) {
-      this.$refs[ref].validate((valid) => {
+      this.$refs[ref].validate(async (valid) => {
         if (!valid) {
           console.log("校验失败");
           return;
         }
-        console.log("检验成功");
+        const result = await this.signin();
+        if (result.data.message == "成功登录！") {
+          this.$message({
+            type: "success",
+            message: result.data.message,
+          });
+          this.$router.replace("/home");
+        } else {
+          this.$message({
+            type: "error",
+            message: result.data.message,
+          });
+        }
       });
     },
     handleFormReset(ref) {
