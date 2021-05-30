@@ -49,6 +49,6 @@ export default {
   background-color: #fff;
 }
 .primary {
-  background-color: $-color-deep-primary;
+  background-color: $-color-primary;
 }
 </style>

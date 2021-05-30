@@ -55,12 +55,12 @@ const isAuth = async () => {
     return false
   }
 }
-const signout = async () => {
+const signout = async function () {
   const res = await axios.request({
     method: 'get',
     url: 'users/signout'
   })
-  return res.data
+  return res
 }
 export {
   signupRequest,

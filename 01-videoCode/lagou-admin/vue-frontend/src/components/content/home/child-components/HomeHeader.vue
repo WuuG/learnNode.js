@@ -28,10 +28,7 @@
             class="button"
           ></el-button>
         </div>
-        <div class="user-info">
-          <el-avatar size="small" class="avatar">user</el-avatar>
-          <span>wuug jeey</span>
-        </div>
+        <home-header-info />
         <el-button
           type="text"
           icon="el-icon-s-tools"
@@ -44,6 +41,7 @@
 
 <script>
 import SlotHeader from "../../../common/Header";
+import HomeHeaderInfo from "./HomeHeaderInfo";
 export default {
   name: "HomeHeader",
   data() {
@@ -53,6 +51,7 @@ export default {
   },
   components: {
     SlotHeader,
+    HomeHeaderInfo,
   },
   methods: {
     collapeSidebar() {
@@ -73,7 +72,7 @@ export default {
 
 .left-content {
   height: $-height-bar;
-  background-color: $-color-deep-primary;
+  background-color: $-color-primary;
   text-align: left;
   display: flex;
   justify-items: left;
@@ -83,7 +82,7 @@ export default {
     margin: 0;
     height: $-height-bar;
     line-height: $-height-bar;
-    background-color: $-color-primary;
+    background-color: $-color-deep-primary;
     font-size: 18px;
     color: $-color-white;
     transition: all 0.2s ease;
@@ -100,22 +99,10 @@ export default {
   display: flex;
   float: right;
   .info-button-group {
-    margin-right: 20px;
-  }
-  .user-info {
-    display: flex;
     margin-right: 10px;
-    height: $-height-bar;
-    max-width: 200px;
-    line-height: $-height-bar;
-    color: $-color-white;
-    .avatar {
-      margin-top: 25px - 14px;
-      margin-right: 10px;
-    }
   }
   .right-last-button {
-    margin-right: 10px;
+    margin: 0 10px;
   }
 }
 </style>
