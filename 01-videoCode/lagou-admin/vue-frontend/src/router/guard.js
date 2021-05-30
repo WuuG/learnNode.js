@@ -2,14 +2,14 @@ import router from './index';
 import { isAuth } from '../network/api/passport';
 
 router.beforeEach(async (to, from, next) => {
-  if (to.name != 'signin') {
-    const res = await isAuth()
-    if (res.status === 403) {
-      next('/passport/signin')
+  const res = await isAuth()
+  if (res) {
+    if (to.name === 'signin') {
+      next('/')
     } else {
       next()
     }
   } else {
-    next()
+    next('/passport/signin')
   }
 })

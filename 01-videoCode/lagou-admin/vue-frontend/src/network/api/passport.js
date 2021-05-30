@@ -2,54 +2,64 @@ import axios from '../request';
 
 const signupRequest = async (datas) => {
   try {
-    const response = await axios.request({
+    const data = await axios.request({
       method: 'post',
       url: 'users',
       data: {
         ...datas
       }
     })
-    return response.data?.data?.data
+    return data.data?.data
   } catch (error) {
     return Promise.reject(error)
   }
 }
 const getUserList = async () => {
   try {
-    const response = await axios.request({
+    const data = await axios.request({
       method: 'get',
       url: 'users'
     })
-    return response?.data?.data
+    return data?.data
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
 const deleteUser = async (id) => {
-  const response = await axios.request({
+  const res = await axios.request({
     method: 'delete',
     url: 'users',
     data: {
       id: id
     }
   })
-  return response.data
+  return res.data
 }
 const signin = async (form) => {
-  const response = await axios.request({
+  const res = await axios.request({
     method: 'post',
     url: 'users/signin',
     data: form
   })
-  return response.data
+  return res
 }
 const isAuth = async () => {
-  const response = await axios.request({
+  const res = await axios.request({
     method: 'get',
     url: 'users/isAuth',
   })
-  return response
+  if (res) {
+    return true
+  } else {
+    return false
+  }
+}
+const signout = async () => {
+  const res = await axios.request({
+    method: 'get',
+    url: 'users/signout'
+  })
 }
 export {
   signupRequest,
