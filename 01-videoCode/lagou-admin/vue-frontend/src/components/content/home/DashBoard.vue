@@ -17,7 +17,7 @@
 import SideBar from "./child-components/HomeSideBar";
 import HomeHeader from "./child-components/HomeHeader";
 export default {
-  name: "Home",
+  name: "DashBoard",
   components: {
     SideBar,
     HomeHeader,

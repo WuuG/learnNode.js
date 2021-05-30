@@ -1,14 +1,9 @@
 <template>
-  <div id="app">
-    <v-home></v-home>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import vHome from "./components/content/home/Home";
-export default {
-  components: { vHome },
-};
+export default {};
 </script>
 
 <style lang="scss">
