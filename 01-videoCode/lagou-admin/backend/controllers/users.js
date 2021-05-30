@@ -1,5 +1,5 @@
 const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
-const { hash, hashCompare, generateRandomstring } = require('../utils/tools')
+const { hash, hashCompare } = require('../utils/tools')
 
 // 注册用户
 const signup = async (req, res, next) => {
@@ -62,13 +62,21 @@ const signin = async (req, res, next) => {
       // res.set('Set-cookie', `sessionId=${sessionId}; Path=/; HttpOnly`)
       // 2.工具设置，工具维护
       req.session.username = username
-      renderMessage(res, 'succ', '密码正确')
+      renderMessage(res, 'succ', '成功登录！')
     }
   } catch (error) {
     console.log(`signin error occured ${error}`);
   }
 }
-
+// 退出登录
+const signout = (req, res, next) => {
+  req.session = null
+  renderMessage(res, 'succ', '已成功退出登录')
+}
+// 权限提示
+const isAuth = (req, res, next) => {
+  renderMessage(res, 'succ', '通过auth验证')
+}
 const renderMessage = function (res, state, message) {
   res.render(state, {
     data: JSON.stringify({
@@ -80,5 +88,7 @@ module.exports = {
   signup,
   list,
   removeUser,
-  signin
+  signin,
+  signout,
+  isAuth
 }
