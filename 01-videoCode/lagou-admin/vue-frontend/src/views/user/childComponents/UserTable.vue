@@ -98,7 +98,7 @@ export default {
     handlePageChange(index) {
       this.tableShowDatas = this.userTableDatas.slice(
         (index - 1) * 10,
-        index * 10 - 1
+        index * 10
       );
     },
     // 设置pagination的当前页面

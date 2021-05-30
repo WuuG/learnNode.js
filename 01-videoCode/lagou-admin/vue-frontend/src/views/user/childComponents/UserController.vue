@@ -4,7 +4,11 @@
       <template #leftContent>
         <el-row class="user-controller">
           <el-col :span="4" :offset="2"
-            ><el-button @click="addDialogVisible = true" type="primary" plain
+            ><el-button
+              @click="addDialogVisible = true"
+              type="primary"
+              plain
+              size="mini"
               >添加用户</el-button
             ></el-col
           >
