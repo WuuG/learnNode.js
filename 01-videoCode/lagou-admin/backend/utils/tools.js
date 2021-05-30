@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const randomstring = require('randomstring');
 
 const hash = (myPlaintextPassword, saltRounds = 10) => {
   return new Promise((resolve, reject) => {
@@ -20,8 +21,12 @@ const hashCompare = (myPlaintextPassword, hash) => {
     });
   });
 }
+const generateRandomstring = () => {
+  return randomstring.generate()
+}
 
 module.exports = {
   hash,
-  hashCompare
+  hashCompare,
+  generateRandomstring
 }

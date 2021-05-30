@@ -1,5 +1,6 @@
 const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
-const { hash, hashCompare } = require('../utils/tools')
+const { hash, hashCompare, generateRandomstring } = require('../utils/tools')
+
 // 注册用户
 const signup = async (req, res, next) => {
   res.set('content-type', 'application/json; charset=utf-8')
@@ -53,10 +54,14 @@ const signin = async (req, res, next) => {
       return
     }
     const result = await hashCompare(password, userinfo.password)
-    console.log(result);
     if (!result) {
       renderMessage(res, 'fail', '密码不正确!')
     } else {
+      // 1.自己设置session，并自己维护
+      // const sessionId = generateRandomstring()
+      // res.set('Set-cookie', `sessionId=${sessionId}; Path=/; HttpOnly`)
+      // 2.工具设置，工具维护
+      req.session.username = username
       renderMessage(res, 'succ', '密码正确')
     }
   } catch (error) {
