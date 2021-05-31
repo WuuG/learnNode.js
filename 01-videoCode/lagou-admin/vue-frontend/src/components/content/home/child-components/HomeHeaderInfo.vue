@@ -40,13 +40,15 @@ export default {
     async signout() {
       try {
         const res = await signout();
-        localStorage.removeItem("token");
         this.$message({
           type: "success",
           message: res.data.data.message,
         });
+        localStorage.removeItem("token");
         this.$router.replace("/passport/signin");
-      } catch (error) {}
+      } catch (error) {
+        console.log(`signout error occured ${error}`);
+      }
     },
   },
 };

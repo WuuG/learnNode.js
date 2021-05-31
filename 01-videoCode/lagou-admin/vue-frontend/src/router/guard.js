@@ -12,13 +12,12 @@ router.beforeEach(async function (to, from, next) {
 })
 
 const handleHasToken = async (to, from, next) => {
-  const res = await isAuth()
-  if (res) {
-    to.name === 'signin' ? next('/') : next()
-  } else {
-    to.name === 'signin' ? next() : next('/passport/signin')
-  }
-
+  // const res = await isAuth()
+  // if (res) {
+  to.name === 'signin' ? next('/') : next()
+  // } else {
+  //   to.name === 'signin' ? next() : next('/passport/signin')
+  // }
 }
 
 const handelWithoutToken = (to, form, next) => {

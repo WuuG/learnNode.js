@@ -78,7 +78,7 @@ export default {
         const res = await deleteUser(this.row._id);
         this.$message({
           type: "success",
-          message: res?.data,
+          message: res.message,
         });
       } catch (error) {
         this.$message(error);
@@ -93,7 +93,7 @@ export default {
     async load() {
       const initDatas = await getUserList();
       this.userTableDatas = initDatas;
-      this.tableShowDatas = this.userTableDatas.slice(0, 9);
+      this.tableShowDatas = this.userTableDatas.slice(0, 10);
     },
     handlePageChange(index) {
       this.tableShowDatas = this.userTableDatas.slice(

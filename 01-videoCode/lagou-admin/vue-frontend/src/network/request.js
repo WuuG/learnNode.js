@@ -32,6 +32,7 @@ class NewAxios {
       const status = error.response.status
       if (status === 403) {
         localStorage.removeItem('token')
+        window.history.go(0)
       }
       return Promise.reject(error);
     });
