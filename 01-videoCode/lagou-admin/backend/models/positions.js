@@ -6,7 +6,12 @@ const addPositoin = (data) => {
   return positoin.save()
 }
 
+const findAllPosition = async () => {
+  const result = await Positions.find({})
+  return result
+}
 
 module.exports = {
-  addPositoin
+  addPositoin,
+  findAllPosition
 }

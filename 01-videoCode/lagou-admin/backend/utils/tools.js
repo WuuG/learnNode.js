@@ -52,9 +52,7 @@ const renderMessage = function (res, state, message) {
 }
 const renderData = function (res, state, data) {
   res.render(state, {
-    data: JSON.stringify({
-      ...data
-    })
+    data: JSON.stringify(data)
   })
 }
 module.exports = {
