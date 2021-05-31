@@ -4,7 +4,7 @@ var router = express.Router();
 const { signup, list, removeUser, signin, signout, isAuth } = require('../controllers/users')
 const { auth } = require('../middlewares/auth')
 /* GET users listing. */
-router.post('/', signup);
+router.post('/', auth, signup);
 // 将auth放在list前，只有通过auth验证，才能进入list的路由
 router.get('/', auth, list)
 router.delete('/', auth, removeUser)
