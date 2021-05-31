@@ -1,5 +1,5 @@
 const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
-const { hash, hashCompare } = require('../utils/tools')
+const { hash, hashCompare, genToken, vertifyToken } = require('../utils/tools')
 
 // 注册用户
 const signup = async (req, res, next) => {
@@ -57,12 +57,21 @@ const signin = async (req, res, next) => {
     if (!result) {
       renderMessage(res, 'fail', '密码不正确!')
     } else {
+      // cookie
       // 1.自己设置session，并自己维护
       // const sessionId = generateRandomstring()
       // res.set('Set-cookie', `sessionId=${sessionId}; Path=/; HttpOnly`)
       // 2.工具设置，工具维护
-      req.session.username = username
-      renderMessage(res, 'succ', '成功登录！')
+      // req.session.username = username
+
+      // token
+      const token = genToken({ username })
+      // 自定义首部字段
+      res.set('X-access-token', token).render('succ', {
+        data: JSON.stringify({
+          message: 'get toKen'
+        })
+      })
     }
   } catch (error) {
     console.log(`signin error occured ${error}`);
@@ -84,6 +93,7 @@ const renderMessage = function (res, state, message) {
     })
   })
 }
+
 module.exports = {
   signup,
   list,
