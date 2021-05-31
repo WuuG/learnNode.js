@@ -42,10 +42,27 @@ const vertifyToken = (token) => {
   const pubKeyPath = fs.readFileSync(path.resolve(__dirname, '../keys/rsa_private.key'))
   return jwt.verify(token, pubKeyPath, { algorithms: "RS256" })
 }
+
+const renderMessage = function (res, state, message) {
+  res.render(state, {
+    data: JSON.stringify({
+      message
+    })
+  })
+}
+const renderData = function (res, state, data) {
+  res.render(state, {
+    data: JSON.stringify({
+      ...data
+    })
+  })
+}
 module.exports = {
   hash,
   hashCompare,
   generateRandomstring,
   genToken,
-  vertifyToken
+  vertifyToken,
+  renderMessage,
+  renderData
 }
