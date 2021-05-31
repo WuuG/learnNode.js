@@ -53,9 +53,6 @@ const signin = async (form) => {
 }
 const isAuth = async () => {
   try {
-    if (!localStorage.getItem('token')) {
-      return false
-    }
     await axios.request({
       method: 'get',
       url: 'users/isAuth',

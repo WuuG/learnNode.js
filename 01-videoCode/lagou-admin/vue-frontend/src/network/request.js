@@ -29,6 +29,10 @@ class NewAxios {
       // console.log(`响应拦截器,config：`, response);
       return response
     }, function (error) {
+      const status = error.response.status
+      if (status === 403) {
+        localStorage.removeItem('token')
+      }
       return Promise.reject(error);
     });
   }
