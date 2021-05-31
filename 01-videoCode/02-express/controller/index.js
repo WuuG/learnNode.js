@@ -2,6 +2,7 @@ const template = require('art-template');
 const path = require('path');
 const fs = require('fs');
 const { dataArray } = require('../model/list')
+var jwt = require('jsonwebtoken');
 
 const list = (req, res, next) => {
   // 1. 服务端渲染
@@ -50,5 +51,21 @@ const list = (req, res, next) => {
 
   res.send('page has been create')
 }
+const toKen = (req, res, next) => {
+  // 1.对称加密
+  // const toKen = jwt.sign({ username: 'wuug' }, 'wuug')
+  // const decoded = jwt.verify(toKen, 'wuug')
+
+  // 2.非对称加密
+  // 私钥加密后发出token
+  const privateKey = fs.readFileSync(path.resolve(__dirname, '../keys/rsa_private.key'))
+  const token = jwt.sign({ username: 'wuug' }, privateKey, { algorithm: 'RS256' })
+  // 收到toKen后 通过公钥验证
+  const publicKey = fs.readFileSync(path.resolve(__dirname, '../keys/rsa_public.key'))
+  const result = jwt.verify(token, publicKey)
+  res.send(result)
+}
+// const toKenVertify = (req, res, next)
 
 exports.list = list
+exports.toKen = toKen

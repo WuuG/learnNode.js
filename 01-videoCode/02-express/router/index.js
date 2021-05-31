@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { list } = require('../controller/index')
+const { list, toKen } = require('../controller/index')
 
 router.get('/', (req, res, next) => {
   console.log(1);
@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
 // 获取query
 router.get('/index', list)
 router.get('/api/list', list)
-
+router.get('/api/token', toKen)
 // //get 获取数据
 // router.get('/index', (req, res, next) => {
 //   const query = req.query

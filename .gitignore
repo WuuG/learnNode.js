@@ -118,5 +118,7 @@ dist
 .vscode
 # igoner log
 log/
+# 忽略测试express
 test-express/
+# 忽略本地数据库
 03-mongoDB/
