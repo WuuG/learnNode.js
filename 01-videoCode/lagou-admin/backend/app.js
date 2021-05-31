@@ -7,6 +7,7 @@ var cookieSession = require('cookie-session')
 // var cors = require('cors');
 
 var usersRouter = require('./routes/users');
+var positionRouter = require('./routes/positions')
 
 var app = express();
 
@@ -27,7 +28,7 @@ app.use(cookieSession({
 // app.use(cors())
 
 app.use('/api/users', usersRouter);
-
+app.use('/api/positions', positionRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
