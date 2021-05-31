@@ -13,6 +13,10 @@ class NewAxios {
     instance.interceptors.request.use(function (config) {
       // Do something before request is sent
       // console.log(`请求拦截器,config`, config);
+      const token = localStorage.getItem('token')
+      if (token) {
+        config.headers['X-Access-Token'] = token
+      }
       return config;
     }, function (error) {
       // Do something with request error
@@ -23,7 +27,7 @@ class NewAxios {
     // Add a response interceptor
     instance.interceptors.response.use(function (response) {
       // console.log(`响应拦截器,config：`, response);
-      return response?.data;
+      return response
     }, function (error) {
       return Promise.reject(error);
     });

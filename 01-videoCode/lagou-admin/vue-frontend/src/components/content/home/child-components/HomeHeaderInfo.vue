@@ -40,9 +40,10 @@ export default {
     async signout() {
       try {
         const res = await signout();
+        localStorage.removeItem("token");
         this.$message({
           type: "success",
-          message: res.data.message,
+          message: res.data.data.message,
         });
         this.$router.replace("/passport/signin");
       } catch (error) {}

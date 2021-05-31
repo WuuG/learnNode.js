@@ -20,7 +20,7 @@ const getUserList = async () => {
       method: 'get',
       url: 'users'
     })
-    return data?.data
+    return data.data.data
   } catch (error) {
     return Promise.reject(error)
   }
@@ -34,18 +34,28 @@ const deleteUser = async (id) => {
       id: id
     }
   })
-  return res.data
+  return res.data.data
 }
 const signin = async (form) => {
-  const res = await axios.request({
-    method: 'post',
-    url: 'users/signin',
-    data: form
-  })
-  return res
+  try {
+    const res = await axios.request({
+      method: 'post',
+      url: 'users/signin',
+      data: form
+    })
+    console.log(res);
+    const token = res.headers['x-access-token']
+    localStorage.setItem('token', token)
+    return res.data
+  } catch (error) {
+    console.log(error);
+  }
 }
 const isAuth = async () => {
   try {
+    if (!localStorage.getItem('token')) {
+      return false
+    }
     await axios.request({
       method: 'get',
       url: 'users/isAuth',
