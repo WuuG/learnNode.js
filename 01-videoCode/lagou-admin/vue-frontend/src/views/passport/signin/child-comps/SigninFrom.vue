@@ -1,5 +1,5 @@
 <template>
-  <div class="signin-form">
+  <div class="signin-form" @keyup.enter="handleFormSubmit('signinForm')">
     <el-form
       :model="form"
       :label-width="labelWidth"
