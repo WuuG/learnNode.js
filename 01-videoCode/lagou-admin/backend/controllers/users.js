@@ -67,7 +67,7 @@ const signin = async (req, res, next) => {
       // token
       const token = genToken({ username })
       // 自定义首部字段
-      res.set('X-access-token', token).render('succ', {
+      res.set('X-Access-Token', token).render('succ', {
         data: JSON.stringify({
           message: '成功登录！'
         })
@@ -85,11 +85,10 @@ const signout = (req, res, next) => {
 // 权限提示
 const isAuth = (req, res, next) => {
   try {
-    const token = req.get('X-access-token')
-    console.log(token);
-    const vetifyResult = vertifyToken(token)
+    const token = req.get('X-Access-Token')
+    vertifyToken(token)
     res.render('succ', {
-      data: JSON.stringify(vetifyResult)
+      data: renderMessage(res, 'succ', '通过token验证')
     })
   } catch (error) {
     res.status(403).render('fail', {

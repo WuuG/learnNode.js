@@ -7,6 +7,7 @@ const auth = (req, res, next) => {
     vertifyToken(token)
     next()
   } catch (error) {
+    console.log(error);
     res.status(403).render('succ', {
       data: JSON.stringify({
         message: '请登录'
