@@ -39,8 +39,8 @@ const genToken = (payload) => {
 }
 // 验证toKen
 const vertifyToken = (token) => {
-  const pubKeyPath = fs.readSync(path.resolve(__dirname, '../keys/rsa_private.key'))
-  return jwt.verify(token, pubKeyPath)
+  const pubKeyPath = fs.readFileSync(path.resolve(__dirname, '../keys/rsa_private.key'))
+  return jwt.verify(token, pubKeyPath, { algorithms: "RS256" })
 }
 module.exports = {
   hash,

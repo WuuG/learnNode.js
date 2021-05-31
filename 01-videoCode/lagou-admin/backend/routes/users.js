@@ -11,6 +11,6 @@ router.delete('/', auth, removeUser)
 
 router.post('/signin', signin)
 router.get('/signout', auth, signout)
-router.get('/isAuth', auth, isAuth)
+router.get('/isAuth', isAuth)
 
 module.exports = router;

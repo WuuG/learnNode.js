@@ -1,9 +1,12 @@
+const { vertifyToken } = require('../utils/tools')
 
 const auth = (req, res, next) => {
-  if (req.session.username) {
-    // 只有在用户登录后，保存下其用户名，才能进行下一步操作
+  try {
+    const token = req.get('X-access-token')
+    console.log(token);
+    vertifyToken(token)
     next()
-  } else {
+  } catch (error) {
     res.status(403).render('succ', {
       data: JSON.stringify({
         message: '请登录'
