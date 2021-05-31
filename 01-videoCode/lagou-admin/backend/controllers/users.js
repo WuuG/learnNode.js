@@ -1,5 +1,5 @@
 const { signupModel, findUser, findList, dbRemoveUser } = require('../models/users')
-const { hash, hashCompare, genToken, vertifyToken } = require('../utils/tools')
+const { hash, hashCompare, genToken, vertifyToken, renderMessage } = require('../utils/tools')
 
 // 注册用户
 const signup = async (req, res, next) => {
@@ -87,9 +87,7 @@ const isAuth = (req, res, next) => {
   try {
     const token = req.get('X-Access-Token')
     vertifyToken(token)
-    res.render('succ', {
-      data: renderMessage(res, 'succ', '通过token验证')
-    })
+    renderMessage(res, 'succ', '通过token验证')
   } catch (error) {
     res.status(403).render('fail', {
       data: JSON.stringify({
@@ -97,13 +95,6 @@ const isAuth = (req, res, next) => {
       })
     })
   }
-}
-const renderMessage = function (res, state, message) {
-  res.render(state, {
-    data: JSON.stringify({
-      message
-    })
-  })
 }
 
 module.exports = {

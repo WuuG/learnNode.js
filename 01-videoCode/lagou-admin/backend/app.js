@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cookieSession = require('cookie-session')
+// var cookieSession = require('cookie-session')
 // var cors = require('cors');
 
 var usersRouter = require('./routes/users');
@@ -21,10 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // 设置cookie-session ,使用中间件后会在req中产生一个session对象
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2']
+// }))
 // app.use(cors())
 
 app.use('/api/users', usersRouter);
