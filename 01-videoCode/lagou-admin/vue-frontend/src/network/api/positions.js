@@ -25,6 +25,20 @@ const add = async (form) => {
   }
 }
 
+const deleteById = async (id) => {
+  try {
+    const result = await axios.request({
+      method: 'delete',
+      url: 'positions',
+      data: {
+        id
+      }
+    })
+    return result
+  } catch (error) {
+    return error.request
+  }
+}
 class PosDatas {
   constructor(form) {
     this.companyName = form.companyName
@@ -36,5 +50,6 @@ class PosDatas {
 export default {
   list,
   add,
+  deleteById,
   PosDatas
 }

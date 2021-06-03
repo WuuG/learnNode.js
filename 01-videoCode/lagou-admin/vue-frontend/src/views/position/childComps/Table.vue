@@ -79,6 +79,26 @@ export default {
       const result = await posReq.list();
       return result.data.data;
     },
+    async deleteByid(id) {
+      try {
+        const result = await posReq.deleteById(id);
+        if (result.status === 202) {
+          this.$message({
+            type: "warning",
+            message: "所删除的用户不存在",
+          });
+          return false;
+        }
+        this.$message({
+          type: "success",
+          message: "用户删除成功",
+        });
+        return false;
+      } catch (error) {
+        console.log(`frontEnd deleteByid error:${error}`);
+        return false;
+      }
+    },
 
     // 处理复选框的选择
     handleSelectChange(rows) {
@@ -89,14 +109,19 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
     },
-    // 处理删除操作
-    async handleDelete(row) {
-      console.log(row);
-    },
-    // 删除dialog的跳出
+    // 点击删除后弹出Dialog
     popDeleteDialog(row) {
       this.deletedialogVisible = true;
       this.row = row;
+    },
+    // 处理Dialog确定删除
+    async handleDelete() {
+      const result = await this.deleteByid(this.row._id);
+      if (!result) {
+        console.log("用户删除失败");
+      }
+      this.deletedialogVisible = false;
+      this.load();
     },
     // 刷新用户表格数据
     async load() {
