@@ -28,8 +28,24 @@ const list = async (req, res, next) => {
   }
 }
 
+const deleteByid = async (req, res, next) => {
+  const id = req.body.id
+  if (id) {
+    try {
+      const result = await positionModel.deleteByid(id)
+      if (result) {
+        renderMessage(res, 'succ', '删除职位成功')
+      } else {
+        renderMessage(res, 'fail', '无法删除职位或职位不存在')
+      }
+    } catch (error) {
+      console.log(`position deletebyId error:${error}`);
+    }
+  }
+}
 
 module.exports = {
   add,
-  list
+  list,
+  deleteByid
 }
