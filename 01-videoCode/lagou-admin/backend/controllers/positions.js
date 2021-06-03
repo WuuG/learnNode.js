@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { addPositoin, findAllPosition } = require('../models/positions')
+const positionModel = require('../models/positions')
 const { renderMessage, renderData } = require('../utils/tools')
 
 const add = async (req, res, next) => {
@@ -7,7 +7,7 @@ const add = async (req, res, next) => {
     res.set('content-type', 'application/json; charset=utf-8')
     const createTime = moment().format('YYYY年MM月DD日,hh:mm');
     const data = req.body
-    const result = await addPositoin({
+    await positionModel.addPositoin({
       ...data,
       createTime
     })
@@ -20,7 +20,7 @@ const add = async (req, res, next) => {
 const list = async (req, res, next) => {
   try {
     res.set('content-type', 'application/json; charset=utf-8')
-    const result = await findAllPosition()
+    const result = await positionModel.findAllPosition()
     renderData(res, 'succ', result)
   } catch (error) {
     console.log(`position list error occurd ${error}`);

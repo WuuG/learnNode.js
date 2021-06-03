@@ -7,7 +7,7 @@ const addPositoin = (data) => {
 }
 
 const findAllPosition = async () => {
-  const result = await Positions.find({})
+  const result = await Positions.find({}).sort({ _id: 1 })
   return result
 }
 
