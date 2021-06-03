@@ -1,15 +1,18 @@
 const moment = require('moment');
+
 const positionModel = require('../models/positions')
 const { renderMessage, renderData } = require('../utils/tools')
 
 const add = async (req, res, next) => {
   try {
+    console.log(req.companyLogo);
     res.set('content-type', 'application/json; charset=utf-8')
     const createTime = moment().format('YYYY年MM月DD日,hh:mm');
     const data = req.body
     await positionModel.addPositoin({
       ...data,
-      createTime
+      createTime,
+      companyLogo: req.companyLogo
     })
     renderMessage(res, 'succ', '职位添加成功')
   } catch (error) {
