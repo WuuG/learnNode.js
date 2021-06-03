@@ -4,9 +4,10 @@ import VueRouter from 'vue-router'
 const Home = () => import('@/views/Home.vue')
 const Test = () => import('@/views/Test.vue')
 const User = () => import('@/views/user/User.vue')
-const BaseTable = () => import('@/components/content/BaseTable.vue')
+const BaseTable = () => import('@/components/content/base-table/BaseTable.vue')
 const Passport = () => import('@/views/passport/Passport.vue')
 const Signin = () => import('@/views/passport/signin/Signin.vue')
+const Position = () => import('@/views/position/Position.vue')
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
             component: BaseTable
           }
         ]
+      },
+      {
+        path: 'position',
+        name: 'position',
+        component: Position
       },
     ]
   },

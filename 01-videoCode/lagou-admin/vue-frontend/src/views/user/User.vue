@@ -1,7 +1,7 @@
 <template>
   <div>
     <user-breadcrumb></user-breadcrumb>
-    <div class="card">
+    <div class="table-card">
       <user-controller @add-user="loadTableDatas"></user-controller>
       <user-table ref="userTable"></user-table>
     </div>
@@ -38,11 +38,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  padding: 5px;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  box-shadow: 0 0 10px #ccc;
-}
 </style>

@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div class="table-card">
+    <el-row>
+      <el-col :offset="2" :span="4">
+        <el-button size="mini" type="primary" plain>添加职位</el-button>
+      </el-col>
+    </el-row>
     <el-table
       :data="tableData"
       stripe

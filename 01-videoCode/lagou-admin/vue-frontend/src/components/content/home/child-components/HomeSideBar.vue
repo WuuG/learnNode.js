@@ -64,6 +64,13 @@ export default {
           index: "user",
           title: "用户管理",
         },
+        //职位管理
+        {
+          icon: "el-icon-s-check",
+          index: "position",
+          title: "职位管理",
+        },
+        //基础组件
         {
           icon: "el-icon-s-help",
           index: "base",
@@ -76,6 +83,7 @@ export default {
             },
           ],
         },
+        //测试页面
         {
           icon: "el-icon-warning",
           index: "test",
