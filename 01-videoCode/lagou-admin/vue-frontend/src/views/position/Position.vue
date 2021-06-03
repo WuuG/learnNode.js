@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PositionTable from "./childComps/PositionBaseTable";
+import PositionTable from "./childComps/Table";
 export default {
   name: "Position",
   components: {
