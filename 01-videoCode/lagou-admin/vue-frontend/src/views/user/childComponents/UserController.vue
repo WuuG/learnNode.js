@@ -31,11 +31,10 @@
         </el-form-item>
         <el-form-item
           label="密码"
-          type="password"
           :label-width="formLabelWidth"
           prop="password"
         >
-          <el-input v-model="userForm.password"></el-input>
+          <el-input type="password" v-model="userForm.password"></el-input>
         </el-form-item>
       </el-form>
       <template v-slot:footer>
