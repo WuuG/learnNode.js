@@ -36,7 +36,7 @@ const deleteByid = async (req, res, next) => {
       if (result) {
         renderMessage(res, 'succ', '删除职位成功')
       } else {
-        renderMessage(res, 'fail', '无法删除职位或职位不存在')
+        res.status(202).send(JSON.stringify({ message: '无法删除职位或职位不存在' }))
       }
     } catch (error) {
       console.log(`position deletebyId error:${error}`);
