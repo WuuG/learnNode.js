@@ -14,9 +14,13 @@ const deleteByid = async (id) => {
   const result = await Positions.findByIdAndDelete(id)
   return result
 }
-
+const update = async (data) => {
+  const result = await Positions.findByIdAndUpdate(data.id, data)
+  return result
+}
 module.exports = {
   addPositoin,
   findAllPosition,
-  deleteByid
+  deleteByid,
+  update
 }

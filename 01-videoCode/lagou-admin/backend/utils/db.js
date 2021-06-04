@@ -1,6 +1,6 @@
 //导入，并连接数据库
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/lagou-admin', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/lagou-admin', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 // 添加数据库连接时的消息提示
 var db = mongoose.connection;

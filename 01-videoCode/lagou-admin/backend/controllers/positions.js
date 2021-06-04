@@ -5,7 +5,6 @@ const { renderMessage, renderData } = require('../utils/tools')
 
 const add = async (req, res, next) => {
   try {
-    console.log(req.companyLogo);
     res.set('content-type', 'application/json; charset=utf-8')
     const createTime = moment().format('YYYY年MM月DD日,hh:mm');
     const data = req.body
@@ -19,7 +18,7 @@ const add = async (req, res, next) => {
     renderMessage(res, 'fail', '职位添加失败')
   }
 }
-
+// 获取职位列表
 const list = async (req, res, next) => {
   try {
     res.set('content-type', 'application/json; charset=utf-8')
@@ -30,7 +29,7 @@ const list = async (req, res, next) => {
     renderMessage(res, 'succ', '获取职位信息失败')
   }
 }
-
+// 根据id删除职位
 const deleteByid = async (req, res, next) => {
   const id = req.body.id
   if (id) {
@@ -46,9 +45,36 @@ const deleteByid = async (req, res, next) => {
     }
   }
 }
+// 编辑职位
+const update = async (req, res, next) => {
+  try {
+    res.set('content-type', 'application/json; charset=utf-8')
+    const data = upDateDataFilter(req.body)
+    if (req.companyLogo) {
+      data['companyLogo'] = req.companyLogo
+    }
+    await positionModel.update({
+      ...data,
+    })
+    renderMessage(res, 'succ', '职位修改成功')
+  } catch (error) {
+    console.log(`update error : ${error}`);
+    renderMessage(res, 'fail', '职位修改失败')
+  }
+}
+const upDateDataFilter = (data) => {
+  const res = {}
+  for (const propName in data) {
+    if (data[propName] != '') {
+      res[propName] = data[propName]
+    }
+  }
+  return res
+}
 
 module.exports = {
   add,
   list,
-  deleteByid
+  deleteByid,
+  update
 }

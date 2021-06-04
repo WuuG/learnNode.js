@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
   },
   // 自定义数据名
   filename: function (req, file, cb) {
+    console.log(file);
     const fileExt = mime.getExtension(file.mimetype)
     filename = file.fieldname + '-' + Date.now() + '.' + fileExt
     cb(null, filename)
@@ -50,6 +51,8 @@ const uploadMiddleware = (req, res, next) => {
       // Everything went fine.
       // 通过在req中自定义属性，将参数传递给下一个中间件
       req.companyLogo = filename
+      filename = '' //为什么当companyLogo为空的时候，不会重新调用multer呢？而需要
+      console.log(req.companyLogo, filename);
       next()
     }
   })

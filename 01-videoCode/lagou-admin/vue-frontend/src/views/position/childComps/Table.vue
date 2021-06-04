@@ -9,9 +9,22 @@
       @selection-change="handleSelectChange"
     >
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column prop="companyLogo" label="头像">
+      <el-table-column
+        prop="companyLogo"
+        label="头像"
+        width="80"
+        align="center"
+      >
         <template #default="scope">
-          <img :src="imgSourceBaseURL + scope.row.companyLogo" alt="" />
+          <el-image
+            class="company-logo"
+            :src="imgSourceBaseURL + scope.row.companyLogo"
+            fit="cover"
+          >
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column prop="companyName" label="公司名" show-overflow-tooltip>
@@ -170,5 +183,13 @@ export default {
 .pagenation {
   margin: 10px;
   text-align: left;
+}
+.company-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
 }
 </style>
