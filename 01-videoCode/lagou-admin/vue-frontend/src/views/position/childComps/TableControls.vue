@@ -1,5 +1,5 @@
 <template>
-  <div id="position-table-controls">
+  <div id="position-table-controls" @keyup.enter="addPos('form')">
     <user-table-header height="40">
       <template #leftContent>
         <el-row class="controller">

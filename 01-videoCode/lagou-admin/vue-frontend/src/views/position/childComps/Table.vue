@@ -1,5 +1,5 @@
 <template>
-  <div class="table-card">
+  <div class="table-card" @keyup.enter="handleDelete">
     <table-controls @add-pos="load"></table-controls>
     <el-table
       :data="tableShowDatas"
@@ -105,7 +105,7 @@ export default {
           type: "success",
           message: "用户删除成功",
         });
-        return false;
+        return true;
       } catch (error) {
         console.log(`frontEnd deleteByid error:${error}`);
         return false;
@@ -128,12 +128,15 @@ export default {
     },
     // 处理Dialog确定删除
     async handleDelete() {
-      const result = await this.deleteByid(this.row._id);
-      if (!result) {
-        console.log("用户删除失败");
+      if (this.deletedialogVisible) {
+        console.log(`handleDelet`);
+        const result = await this.deleteByid(this.row._id);
+        if (!result) {
+          console.log("用户删除失败");
+        }
+        this.deletedialogVisible = false;
+        this.load();
       }
-      this.deletedialogVisible = false;
-      this.load();
     },
     // 刷新用户表格数据
     async load() {
