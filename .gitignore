@@ -122,3 +122,5 @@ log/
 test-express/
 # 忽略本地数据库
 03-mongoDB/
+# 忽略服务器接受到的图片
+uploads/

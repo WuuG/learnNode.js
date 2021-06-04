@@ -13,10 +13,14 @@ const list = async () => {
 }
 
 const add = async (form) => {
+  console.log(form);
   try {
     const result = await axios.request({
       method: 'post',
       url: 'positions',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
       data: form
     })
     return result
@@ -41,9 +45,11 @@ const deleteById = async (id) => {
 }
 class PosDatas {
   constructor(form) {
-    this.companyName = form.companyName
-    this.city = form.city
-    this.salary = form.salary
+    this.form = new FormData()
+    for (const propName in form) {
+      console.log(propName);
+      this.form.append(propName, form[propName]);
+    }
   }
 }
 

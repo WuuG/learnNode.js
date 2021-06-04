@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="position-table-controls">
     <user-table-header height="40">
       <template #leftContent>
         <el-row class="controller">
@@ -20,14 +20,37 @@
       :visible.sync="addDialogVisible"
       width="30%"
       @closed="handleClose"
+      class="add-dialog"
     >
       <el-form :model="posForm" :rules="userRules" ref="form">
+        <el-form-item
+          label="公司Logo"
+          :label-width="formLabelWidth"
+          prop="companyLogo"
+        >
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+          >
+            <img v-if="src" :src="src" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item
           label="公司名"
           :label-width="formLabelWidth"
           prop="companyName"
         >
           <el-input v-model="posForm.companyName"></el-input>
+        </el-form-item>
+        <el-form-item
+          label="职位名称"
+          :label-width="formLabelWidth"
+          prop="positionName"
+        >
+          <el-input v-model="posForm.positionName"></el-input>
         </el-form-item>
         <el-form-item label="城市" :label-width="formLabelWidth" prop="city">
           <el-input v-model="posForm.city"></el-input>
@@ -58,19 +81,28 @@ export default {
       addDialogVisible: false,
       posForm: {
         companyName: "",
+        positionName: "",
         city: "",
         salary: "",
+        companyLogo: "",
       },
-      formLabelWidth: "80px",
+      formLabelWidth: "90px",
       userRules: {
+        companyLogo: [
+          { required: true, message: "请上传公司Logo", trigger: "blur" },
+        ],
         companyName: [
           { required: true, message: "请输入公司名", trigger: "blur" },
+        ],
+        positionName: [
+          { required: true, message: "请输入职位名称", trigger: "blur" },
         ],
         city: [{ required: true, message: "请输入城市", trigger: "blur" }],
         salary: [
           { required: true, message: "请输入薪资水平", trigger: "blur" },
         ],
       },
+      src: "",
     };
   },
   components: {
@@ -78,19 +110,29 @@ export default {
   },
   methods: {
     // 添加数据网络请求
-    async addPosReq(form) {
-      const body = new posReq.PosDatas(form);
-      const result = await posReq.add(body);
+    async addPosReq() {
+      // 调用PosDatas
+      const { form } = new posReq.PosDatas(this.posForm);
+      console.log(form);
+      const result = await posReq.add(form);
       return result;
     },
 
-    //同步获取添加用户的结果
+    beforeUpload(file) {
+      const windowURL = window.URL || window.webkitURL;
+      this.src = windowURL.createObjectURL(file);
+      this.posForm.companyLogo = file;
+      return false;
+    },
+    // 添加后 同步获取添加用户的结果
     addPos(refName) {
       this.$refs[refName].validate(async (valid) => {
         if (valid) {
           try {
             this.addDialogVisible = false;
-            const res = await this.addPosReq(this.posForm);
+            // 处理其他数据
+            const res = await this.addPosReq();
+            console.log(res);
             this.$message({
               type: "success",
               message: res.data.data.message,
@@ -115,5 +157,37 @@ export default {
 .controller {
   height: 40px;
   line-height: 40px;
+}
+.add-dialog {
+  .avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 178px;
+    height: 178px;
+    &:hover {
+      border-color: #409eff;
+    }
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+}
+</style>
+<style >
+#position-table-controls .add-dialog .el-dialog {
+  min-width: 320px;
 }
 </style>
