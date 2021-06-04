@@ -1,7 +1,9 @@
 const multer = require('multer');
-const path = require('path');
 const mime = require('mime');
 const { renderMessage, renderData } = require('../utils/tools');
+
+const path = require('path');
+const fs = require('fs')
 
 // 全局filename变量，用来传递filename，并在数据库中进行存储
 let filename = ''
@@ -13,10 +15,14 @@ const storage = multer.diskStorage({
   },
   // 自定义数据名
   filename: function (req, file, cb) {
-    console.log(file);
-    const fileExt = mime.getExtension(file.mimetype)
-    filename = file.fieldname + '-' + Date.now() + '.' + fileExt
-    cb(null, filename)
+    try {
+      console.log(file);
+      const fileExt = mime.getExtension(file.mimetype)
+      filename = file.fieldname + '-' + Date.now() + '.' + fileExt
+      cb(null, filename)
+    } catch (error) {
+      console.error(`multer.diskStorage occur error ${error}`)
+    }
   }
 })
 // 对上传图片内容进行限制
@@ -52,7 +58,14 @@ const uploadMiddleware = (req, res, next) => {
       // 通过在req中自定义属性，将参数传递给下一个中间件
       req.companyLogo = filename
       filename = '' //为什么当companyLogo为空的时候，不会重新调用multer呢？而需要
-      console.log(req.companyLogo, filename);
+      const { companyLogo, companyLogoOld } = req.body
+      if (companyLogo === undefined) { // 如果有上传新的图片，就会被company属性会被multer接受，并且该属性会消失
+        try {
+          fs.unlinkSync(path.resolve(__dirname, `../public/uploads/${companyLogoOld}`))
+        } catch (error) {
+          console.error(`delete companyOldLogo error occured ${error}`);
+        }
+      }
       next()
     }
   })
