@@ -17,8 +17,16 @@
           width="20px"
           height="20px"
       /></el-table-column>
-      <el-table-column prop="companyName" label="公司名"> </el-table-column>
-      <el-table-column prop="city" label="城市"> </el-table-column>
+      <el-table-column prop="companyName" label="公司名" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column prop="city" label="城市" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="positionName"
+        label="职位名称"
+        show-overflow-tooltip
+      >
+      </el-table-column>
       <el-table-column
         prop="createTime"
         label="创建时间"
@@ -26,7 +34,11 @@
         show-overflow-tooltip
       >
       </el-table-column>
-      <el-table-column prop="salary" label="薪水"></el-table-column>
+      <el-table-column
+        prop="salary"
+        label="薪水"
+        show-overflow-tooltip
+      ></el-table-column>
       <el-table-column label="操作" width="170">
         <template #default="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
@@ -44,6 +56,7 @@
       layout="total,->,prev, pager, next"
       :total="posTableDatas.length"
       background
+      :page-size="pageSize"
       @current-change="handlePageChange"
     >
     </el-pagination>
@@ -71,6 +84,7 @@ export default {
       deletedialogVisible: false,
       row: {},
       curPage: 1,
+      pageSize: 9,
     };
   },
   methods: {
@@ -135,8 +149,8 @@ export default {
     handlePageChange(index) {
       this.curPage = index;
       this.tableShowDatas = this.posTableDatas.slice(
-        (index - 1) * 10,
-        index * 10
+        (index - 1) * this.pageSize,
+        index * this.pageSize
       );
     },
     // 设置pagination的当前页面

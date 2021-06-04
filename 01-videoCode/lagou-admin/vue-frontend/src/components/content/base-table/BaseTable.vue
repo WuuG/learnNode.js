@@ -31,6 +31,7 @@
       layout="total,->,prev, pager, next"
       :total="userTableDatas.length"
       background
+      :page-size="pageSize"
       @current-change="handlePageChange"
     >
     </el-pagination>
@@ -56,6 +57,7 @@ export default {
       tableShowDatas: [],
       deletedialogVisible: false,
       row: {},
+      pageSize: 10,
     };
   },
   methods: {
@@ -96,13 +98,13 @@ export default {
         },
       ];
       this.userTableDatas = initDatas;
-      this.tableShowDatas = this.userTableDatas.slice(0, 10);
+      this.tableShowDatas = this.userTableDatas.slice(0, this.pageSize);
     },
     // 处理页面变动
     handlePageChange(index) {
       this.tableShowDatas = this.userTableDatas.slice(
-        (index - 1) * 10,
-        index * 10
+        (index - 1) * this.pageSize,
+        index * this.pageSize
       );
     },
     // 设置pagination的当前页面
