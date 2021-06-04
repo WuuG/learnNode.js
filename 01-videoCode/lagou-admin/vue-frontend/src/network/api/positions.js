@@ -47,7 +47,6 @@ class PosDatas {
   constructor(form) {
     this.form = new FormData()
     for (const propName in form) {
-      console.log(propName);
       this.form.append(propName, form[propName]);
     }
   }

@@ -9,14 +9,11 @@
       @selection-change="handleSelectChange"
     >
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column prop="avatar" label="头像"
-        ><img
-          src="../../../assets/images/logo.png"
-          alt=""
-          class="img"
-          width="20px"
-          height="20px"
-      /></el-table-column>
+      <el-table-column prop="companyLogo" label="头像">
+        <template #default="scope">
+          <img :src="imgSourceBaseURL + scope.row.companyLogo" alt="" />
+        </template>
+      </el-table-column>
       <el-table-column prop="companyName" label="公司名" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="city" label="城市" show-overflow-tooltip>
@@ -85,6 +82,7 @@ export default {
       row: {},
       curPage: 1,
       pageSize: 9,
+      imgSourceBaseURL: "http://localhost:3000/uploads/",
     };
   },
   methods: {
