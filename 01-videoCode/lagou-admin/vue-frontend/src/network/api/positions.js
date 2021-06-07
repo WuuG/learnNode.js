@@ -43,6 +43,23 @@ const deleteById = async (id) => {
     return error.request
   }
 }
+const modifyPosition = async (form) => {
+  try {
+    const { form: realForm } = new PosDatas(form)
+    console.log(realForm);
+    const result = await axios.request({
+      method: 'patch',
+      url: 'positions',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      data: realForm
+    })
+    return result
+  } catch (error) {
+    return error
+  }
+}
 class PosDatas {
   constructor(form) {
     this.form = new FormData()
@@ -52,9 +69,23 @@ class PosDatas {
   }
 }
 
+class ModifyFormFilter {
+  constructor(form) {
+    this.companyLogo = ''
+    this.companyName = form.companyName
+    this.companyLogoOld = form.companyLogo
+    this.positionName = form.positionName
+    this.city = form.city
+    this.salary = form.salary
+    this.id = form._id
+  }
+}
+
 export default {
   list,
   add,
   deleteById,
+  modifyPosition,
+  ModifyFormFilter,
   PosDatas
 }

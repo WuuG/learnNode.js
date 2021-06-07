@@ -21,7 +21,7 @@
             :src="imgSourceBaseURL + scope.row.companyLogo"
             fit="cover"
           >
-            <div slot="error" class="image-slot">
+            <div slot="error" class="company-logo">
               <i class="el-icon-picture-outline"></i>
             </div>
           </el-image>
@@ -51,9 +51,7 @@
       ></el-table-column>
       <el-table-column label="操作" width="170">
         <template #default="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
+          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" @click="popDeleteDialog(scope.row)"
             >删除</el-button
           >
@@ -67,6 +65,7 @@
       :total="posTableDatas.length"
       background
       :page-size="pageSize"
+      :current-page.sync="curPage"
       @current-change="handlePageChange"
     >
     </el-pagination>
@@ -77,24 +76,38 @@
         <el-button type="primary" @click="handleDelete">确 定</el-button>
       </span>
     </el-dialog>
+    <table-edit-dialog
+      :id="activePos._id"
+      :visible="dialogEditVisible"
+      @close="changeEditDialogVisble"
+      @load="load"
+      ref="editDialog"
+    ></table-edit-dialog>
   </div>
 </template>
 
 <script>
-import posReq from "../../../network/api/positions";
-import tableControls from "./TableControls";
+import posReq from "network/api/positions";
+
+import TableControls from "./TableControls";
+import TableEditDialog from "./TableEditDialog";
 export default {
   components: {
-    tableControls,
+    TableControls,
+    TableEditDialog,
   },
   data() {
     return {
+      // 职位管理表格数据
       posTableDatas: [],
+      // 职位管理显示的数据
       tableShowDatas: [],
       deletedialogVisible: false,
-      row: {},
+      dialogEditVisible: false,
+      activePos: {},
       curPage: 1,
       pageSize: 9,
+      // 图片的baseURL
       imgSourceBaseURL: "http://localhost:3000/uploads/",
     };
   },
@@ -131,19 +144,23 @@ export default {
       console.log(rows);
     },
     // 处理编辑操作
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleEdit(row) {
+      // 处理editDialog的url form，总感觉这里有更好的办法
+      this.$refs.editDialog.src = this.imgSourceBaseURL + row.companyLogo;
+      this.$refs.editDialog.form = { ...row };
+      this.$refs.editDialog.handleForm();
+      this.changeEditDialogVisble();
     },
     // 点击删除后弹出Dialog
     popDeleteDialog(row) {
       this.deletedialogVisible = true;
-      this.row = row;
+      this.activePos = row;
     },
     // 处理Dialog确定删除
     async handleDelete() {
       if (this.deletedialogVisible) {
         console.log(`handleDelet`);
-        const result = await this.deleteByid(this.row._id);
+        const result = await this.deleteByid(this.activePos._id);
         if (!result) {
           console.log("用户删除失败");
         }
@@ -157,7 +174,6 @@ export default {
       const initDatas = await this.getList();
       this.posTableDatas = initDatas;
       this.handlePageChange(index);
-      this.setPage(index);
     },
     // 处理页面变动
     handlePageChange(index) {
@@ -167,9 +183,8 @@ export default {
         index * this.pageSize
       );
     },
-    // 设置pagination的当前页面
-    setPage(index) {
-      this.$refs.pagination.internalCurrentPage = index;
+    changeEditDialogVisble() {
+      this.dialogEditVisible = !this.dialogEditVisible;
     },
     // 添加完数据后的回调函数
   },
