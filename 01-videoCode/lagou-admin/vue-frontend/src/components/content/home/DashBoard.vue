@@ -7,7 +7,9 @@
         <home-header></home-header>
       </el-header>
       <el-main class="main" :style="{ left: mainPosLeft }">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </el-main>
     </el-container>
   </el-container>
