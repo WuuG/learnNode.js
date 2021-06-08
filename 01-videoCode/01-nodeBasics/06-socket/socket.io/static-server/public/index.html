@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>WebSocket</title>
-  <script src="WsClient.js" charset="utf-8"></script>
+  <title>socket.io</title>
+  <script src="socket.io.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -18,12 +19,19 @@
   </div>
   <button id="submit">提交</button>
   <script>
+    var socket = io.connect('http://127.0.0.1:3001');
+    const content = document.getElementById('content')
     document.querySelector('#submit')
       .addEventListener('click', function () {
         var msg2 = msg.value
-        ws.send(msg2) // 核心代码，将表单里的数据提交给server端
+        socket.emit('receive', msg2) // 核心代码
         msg.value = ''
+        content.innerHTML += msg2 + '<br>'
       }, false)
+
+    socket.on('message', function (msg) {
+      content.innerHTML += msg + '<br/>'
+    })
   </script>
 </body>
 
