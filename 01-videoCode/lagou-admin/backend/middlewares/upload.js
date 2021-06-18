@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
   // 自定义数据名
   filename: function (req, file, cb) {
     try {
-      console.log(file);
+      console.log(`accept file and Info:${file} `);
       const fileExt = mime.getExtension(file.mimetype)
       filename = file.fieldname + '-' + Date.now() + '.' + fileExt
       cb(null, filename)
