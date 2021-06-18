@@ -123,4 +123,6 @@ test-express/
 # 忽略本地数据库
 03-mongoDB/
 # 忽略服务器接受到的图片
-uploads/
+*/*/*/*/uploads/*
+# 为了保证upload文件夹存在，所以放置了一张图片
+!*/*/*/*/uploads/companyLogo-1624026563187.png
